@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hyphenate="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:id="@+id/root"
+    android:background="#f2f0eb" >
+    <LinearLayout
+        android:background="#2D3134"
+        android:id="@+id/ll"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="132px">
+        <com.hyphenate.easeui.widget.EaseTitleBar
+            android:layout_marginTop="44px"
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            hyphenate:titleBarLeftImage="@drawable/ease_mm_title_back" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/input_menu"
+        android:layout_below="@id/ll" >
+
+        <com.hyphenate.easeui.widget.EaseChatMessageList
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:id="@+id/message_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.hyphenate.easeui.widget.EaseVoiceRecorderView
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:id="@+id/voice_recorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/guanli"
+                android:textSize="16dp"
+                android:textColor="#ffffff"
+                android:background="#442310"
+                android:gravity="center"
+                android:text="管理"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+             <View
+                 android:background="@color/btn_white_normal"
+                 android:layout_width="match_parent"
+                 android:layout_height="1dp"/>
+            <TextView
+                android:id="@+id/benju"
+                android:textSize="16dp"
+                android:textColor="#ffffff"
+                android:background="#442310"
+                android:gravity="center"
+                android:text="本局"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <View
+                android:background="@color/btn_white_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <TextView
+                android:id="@+id/touzhu"
+                android:textSize="16dp"
+                android:textColor="#ffffff"
+                android:background="#442310"
+                android:gravity="center"
+                android:text="投注"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <View
+                android:background="@color/btn_white_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <TextView
+                android:id="@+id/zhibo"
+                android:textSize="16dp"
+                android:textColor="#ffffff"
+                android:background="#442310"
+                android:gravity="center"
+                android:text="直播"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <View
+                android:background="@color/btn_white_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <TextView
+                android:id="@+id/ludan"
+                android:textSize="16dp"
+                android:textColor="#ffffff"
+                android:background="#442310"
+                android:gravity="center"
+                android:text="路单"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:background="@color/black_deep"
+            android:alpha="0.3"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_head"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:text="1押5，正在下注"
+                android:textColor="#ff0000"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.hyphenate.easeui.widget.EaseChatInputMenu
+        android:id="@+id/input_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

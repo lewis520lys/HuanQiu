@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/id_pop_layout"
+    android:background="#F3F3F3"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/d20"
+        android:paddingLeft="@dimen/d20"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="请下注"
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+
+                android:id="@+id/tv_zhuang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+
+                android:id="@+id/tv_he"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+
+                android:id="@+id/tv_xian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+
+                android:id="@+id/tv_zhuangdui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+
+                android:id="@+id/tv_xiandui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+
+                android:id="@+id/tv_zhuangxiandui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+
+                android:id="@+id/tv_sanbao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/wihte"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_yue"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/d20"
+            android:text="余额10000"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <LinearLayout
+        android:paddingRight="@dimen/d20"
+        android:paddingLeft="@dimen/d20"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:background="@color/wihte"
+            android:id="@+id/bt_zhuang"
+            android:textColor="#84434B"
+            android:gravity="center"
+            android:text="庄"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d90" />
+        <Button
+            android:textColor="#9BD48D"
+            android:background="@color/wihte"
+            android:id="@+id/bt_he"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/d20"
+            android:layout_marginLeft="@dimen/d20"
+            android:text="和"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d90" />
+        <Button
+            android:textColor="#9F9CAF"
+            android:background="@color/wihte"
+            android:id="@+id/bt_xian"
+            android:gravity="center"
+            android:text="闲"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d90" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/d20"
+        android:paddingRight="@dimen/d20"
+        android:paddingLeft="@dimen/d20"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:textColor="#916A63"
+            android:background="@color/wihte"
+            android:id="@+id/bt_zhuangdui"
+            android:gravity="center"
+            android:text="庄对"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d90" />
+        <Button
+            android:textColor="#8C88A3"
+            android:background="@color/wihte"
+            android:id="@+id/bt_xiandui"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/d20"
+            android:layout_marginLeft="@dimen/d20"
+            android:text="闲对"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d90" />
+        <Button
+            android:textColor="#F8E0C4"
+            android:background="@color/wihte"
+            android:id="@+id/bt_zhuangxiandui"
+            android:layout_marginRight="@dimen/d20"
+            android:gravity="center"
+            android:text="庄闲对"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d90" />
+        <Button
+            android:textColor="#9FD8CF"
+            android:background="@color/wihte"
+            android:id="@+id/bt_sanbao"
+            android:gravity="center"
+            android:text="三宝"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d90" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/d20"
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d380">
+        <com.lewis.cp.widget.NumberKeyboardView
+            android:layout_marginTop="@dimen/d20"
+            android:id="@+id/nkv_keyboard"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+             />
+        <Button
+            android:layout_margin="20px"
+            android:id="@+id/bt_commit"
+            android:text="发送"
+            android:layout_width="@dimen/d240"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>

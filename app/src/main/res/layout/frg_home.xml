@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/head"
+        layout="@layout/layout_head"/>
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d224"
+        ></com.youth.banner.Banner>
+     <TextView
+         android:textSize="@dimen/d36"
+         android:layout_marginTop="@dimen/d22"
+         android:layout_marginLeft="@dimen/d240"
+         android:layout_marginRight="@dimen/d240"
+         android:gravity="center"
+         android:textColor="@color/wihte"
+         android:background="@color/comColor"
+         android:text="最新资讯"
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/d88"/>
+    <TextView
+        android:id="@+id/tv_content"
+        android:text="今日活动，充多少送多少，同时还有抽奖活动，一等奖送苹果7"
+        android:layout_marginRight="@dimen/d32"
+        android:layout_marginLeft="@dimen/d32"
+
+        android:textSize="@dimen/d36"
+        android:layout_marginTop="@dimen/d66"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

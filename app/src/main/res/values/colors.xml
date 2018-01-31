@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="wihte">#ffffff</color>
+    <color name="gary">#C7C9C8</color>
+    <color name="comColor">#2BA246 </color>
+    <color name="title_bg">#2D3134</color>
+    <color name="input_bg">#d7d7d7</color>
+</resources>

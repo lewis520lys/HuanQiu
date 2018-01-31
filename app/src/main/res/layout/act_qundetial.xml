@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/wihte"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_head"/>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d150">
+        <ImageView
+            android:layout_marginLeft="@dimen/d32"
+            android:id="@+id/iv_qun"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="@dimen/d90"
+            android:layout_height="@dimen/d90" />
+        <TextView
+            android:text="群主：小王"
+            android:layout_marginLeft="@dimen/d56"
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="#E3E3E3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d20"/>
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/d32"
+        android:paddingRight="@dimen/d32"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <TextView
+            android:textStyle="bold"
+            android:text="群组ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_qun_id"
+            android:text="12344"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/d32"
+        android:paddingRight="@dimen/d32"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <TextView
+            android:textStyle="bold"
+            android:text="群成员"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_qun_num"
+            android:text="12344"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#E3E3E3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d20"/>
+    <TextView
+        android:paddingLeft="@dimen/d32"
+        android:textStyle="bold"
+        android:text="群公告"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="@dimen/d10"
+        android:id="@+id/tv_qungonggao"
+        android:paddingLeft="@dimen/d32"
+        android:text="未设置"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/d56"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/bt_exit"
+            android:text="退出该群"
+            android:textColor="@color/wihte"
+            android:background="@color/comColor"
+            android:layout_width="@dimen/d224"
+            android:layout_height="@dimen/d66" />
+    </RelativeLayout>
+</LinearLayout>

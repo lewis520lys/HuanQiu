@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/head"
+        layout="@layout/layout_head"/>
+    <RelativeLayout
+            android:id="@+id/rl_head"
+        android:paddingLeft="@dimen/d32"
+        android:paddingRight="@dimen/d32"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d150">
+       <com.lewis.cp.widget.CircleImageView
+            android:id="@+id/iv_head"
+           android:layout_centerVertical="true"
+           android:src="@drawable/ic_launcher"
+           android:layout_width="@dimen/d90"
+           android:layout_height="@dimen/d90" />
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/iv_head"
+            android:layout_marginLeft="@dimen/d88"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="泽林"
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="@dimen/d40"
+                android:text="1111"
+                android:id="@+id/tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:paddingRight="@dimen/d32"
+        android:paddingLeft="@dimen/d32"
+        android:id="@+id/rl_yufen"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="我的余分"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/left"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <View
+        android:layout_marginLeft="@dimen/d32"
+        android:background="@color/btn_gray_normal"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/><RelativeLayout
+        android:paddingRight="@dimen/d32"
+        android:paddingLeft="@dimen/d32"
+        android:id="@+id/rl_liuxhui"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="我的流水"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/left"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <View
+        android:layout_marginLeft="@dimen/d32"
+        android:background="@color/btn_gray_normal"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/><RelativeLayout
+        android:paddingRight="@dimen/d32"
+        android:paddingLeft="@dimen/d32"
+        android:id="@+id/rl_shangxiafen"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="我的上下分"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/left"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <View
+        android:layout_marginLeft="@dimen/d32"
+        android:background="@color/btn_gray_normal"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/><RelativeLayout
+        android:paddingRight="@dimen/d32"
+        android:paddingLeft="@dimen/d32"
+        android:id="@+id/rl_xiugaipass"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="修改密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/left"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <View
+        android:layout_marginLeft="@dimen/d32"
+        android:background="@color/btn_gray_normal"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+    <RelativeLayout
+        android:paddingRight="@dimen/d32"
+        android:paddingLeft="@dimen/d32"
+        android:id="@+id/rl_jianyi"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="建议意见"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/left"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <View
+        android:layout_marginLeft="@dimen/d32"
+        android:background="@color/btn_gray_normal"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/><RelativeLayout
+        android:paddingRight="@dimen/d32"
+        android:paddingLeft="@dimen/d32"
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="我的链接"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_copy"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="点击复制"
+            android:background="#ff0000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <View
+        android:layout_marginLeft="@dimen/d32"
+        android:background="@color/btn_gray_normal"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+    <Button
+
+        android:layout_marginTop="@dimen/d40"
+        android:background="@color/comColor"
+        android:textColor="@color/wihte"
+        android:id="@+id/bt_exit"
+        android:text="退出登录"
+        android:layout_width="@dimen/d200"
+        android:layout_height="@dimen/d90" />
+</LinearLayout>

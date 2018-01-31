@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/wihte"
+    android:paddingRight="30px"
+    android:paddingLeft="30px"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/et_qun"
+        android:layout_marginTop="@dimen/d40"
+        android:background="@drawable/input_shap"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90" />
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_marginTop="@dimen/d40"
+        android:layout_marginBottom="@dimen/d40"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/bt_add"
+            android:text="添加"
+            android:textColor="@color/wihte"
+            android:background="@color/comColor"
+            android:layout_width="@dimen/d224"
+            android:layout_height="@dimen/d66" />
+    </RelativeLayout>
+
+</LinearLayout>

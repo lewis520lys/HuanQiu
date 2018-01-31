@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@mipmap/welcom"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv"
+        android:background="@drawable/time_shap"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/d88"
+        android:layout_marginRight="@dimen/d44"
+        android:layout_alignParentRight="true"
+        android:text="3s"
+        android:layout_width="@dimen/d88"
+        android:layout_height="@dimen/d88" />
+</RelativeLayout>

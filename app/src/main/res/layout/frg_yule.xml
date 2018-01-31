@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/root"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/head"
+        layout="@layout/layout_head"/>
+    <TextView
+        android:id="@+id/tv_head"
+        android:gravity="center"
+        android:textSize="@dimen/d32"
+        android:text="1押5，正在下注"
+        android:textColor="@color/comColor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d88" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+       <LinearLayout
+           android:layout_marginTop="@dimen/d106"
+           android:layout_alignParentRight="true"
+           android:orientation="vertical"
+           android:layout_width="@dimen/d56"
+           android:layout_height="wrap_content">
+           <TextView
+               android:id="@+id/caiwu"
+               android:textSize="@dimen/d26"
+               android:textColor="@color/wihte"
+               android:background="#442310"
+               android:gravity="center"
+               android:text="财务"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/d88" />
+           <TextView
+               android:id="@+id/kefu"
+               android:textSize="@dimen/d26"
+               android:textColor="@color/wihte"
+               android:background="#442310"
+               android:gravity="center"
+               android:text="客服"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/d88" />
+           <TextView
+               android:id="@+id/benju"
+               android:textSize="@dimen/d26"
+               android:textColor="@color/wihte"
+               android:background="#442310"
+               android:gravity="center"
+               android:text="本局"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/d88" />
+           <TextView
+               android:id="@+id/touzhu"
+               android:textSize="@dimen/d26"
+               android:textColor="@color/wihte"
+               android:background="#442310"
+               android:gravity="center"
+               android:text="投注"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/d88" />
+           <TextView
+               android:id="@+id/zhibo"
+               android:textSize="@dimen/d26"
+               android:textColor="@color/wihte"
+               android:background="#442310"
+               android:gravity="center"
+               android:text="直播"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/d88" />
+           <TextView
+               android:id="@+id/ludan"
+               android:textSize="@dimen/d26"
+               android:textColor="@color/wihte"
+               android:background="#442310"
+               android:gravity="center"
+               android:text="路单"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/d88" />
+
+       </LinearLayout>
+        
+    </RelativeLayout>
+
+</LinearLayout>

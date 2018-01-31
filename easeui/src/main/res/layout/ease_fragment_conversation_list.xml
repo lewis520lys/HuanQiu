@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hyphenate="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical">
+
+	<RelativeLayout
+		android:background="#2D3134"
+
+		android:layout_width="match_parent"
+		android:layout_height="132px">
+
+		<RelativeLayout
+			android:background="#373A41"
+			android:layout_marginTop="44px"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<TextView
+				android:text="娱乐"
+				android:textSize="40px"
+				android:id="@+id/tv_title"
+				android:textColor="@color/btn_white_normal"
+				android:layout_centerInParent="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+			<TextView
+				android:textSize="36px"
+				android:layout_marginRight="20px"
+				android:textColor="@color/btn_white_normal"
+				android:text="加群"
+				android:layout_alignParentRight="true"
+				android:layout_centerVertical="true"
+				android:id="@+id/tv_right"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+		</RelativeLayout>
+
+	</RelativeLayout>
+    
+    <include layout="@layout/ease_search_bar" />
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fl_error_item"
+        >
+    </FrameLayout>
+
+
+    <com.hyphenate.easeui.widget.EaseConversationList
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        hyphenate:cvsListPrimaryTextSize="16sp"
+         />
+
+</LinearLayout>

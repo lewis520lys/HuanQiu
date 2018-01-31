@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/root"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_head"/>
+    <RelativeLayout
+        android:paddingRight="@dimen/d32"
+        android:paddingLeft="@dimen/d32"
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d150">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="头像"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="@dimen/d90"
+            android:layout_height="@dimen/d90" />
+    </RelativeLayout>
+    <View
+        android:background="#E3E3E3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d1"/>
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/d32"
+        android:paddingRight="@dimen/d32"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <TextView
+            android:text="昵称"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:background="@null"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_name"
+            android:text="小明"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#E3E3E3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d1"/>
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/d32"
+        android:paddingRight="@dimen/d32"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d90">
+        <TextView
+            android:text="性别"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:background="@null"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_sex"
+            android:text="男"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#E3E3E3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d1"/>
+</LinearLayout>

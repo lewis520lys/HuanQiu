@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <include layout="@layout/layout_head"/>
+    <EditText
+        android:gravity="start"
+        android:hint="请输入"
+        android:layout_marginRight="@dimen/d40"
+        android:layout_marginLeft="@dimen/d40"
+        android:id="@+id/et_qun"
+        android:layout_marginTop="@dimen/d40"
+        android:background="@drawable/input_shap"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d224" />
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_marginTop="@dimen/d40"
+        android:layout_marginBottom="@dimen/d40"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/bt_add"
+            android:text="提交"
+            android:textColor="@color/wihte"
+            android:background="@color/comColor"
+            android:layout_width="@dimen/d224"
+            android:layout_height="@dimen/d66" />
+    </RelativeLayout>
+
+</LinearLayout>
