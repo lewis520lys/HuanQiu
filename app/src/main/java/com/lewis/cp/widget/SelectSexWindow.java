@@ -14,31 +14,23 @@ import android.widget.PopupWindow;
 
 import com.lewis.cp.R;
 
-public class SelectPicPopupWindow extends PopupWindow {
+public class SelectSexWindow extends PopupWindow {
 
-  
-    private Button btn_take_photo, btn_pick_photo, btn_cancel;
+
+    private Button bt_nan, bt_nv;
     private View mMenuView;
-  
-    public SelectPicPopupWindow(Activity context, View.OnClickListener itemsOnClick) {
-        super(context);  
+
+    public SelectSexWindow(Activity context, OnClickListener itemsOnClick) {
+        super(context);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mMenuView = inflater.inflate(R.layout.alert_dialog, null);
-        btn_take_photo = (Button) mMenuView.findViewById(R.id.btn_take_photo);  
-        btn_pick_photo = (Button) mMenuView.findViewById(R.id.btn_pick_photo);  
-        btn_cancel = (Button) mMenuView.findViewById(R.id.btn_cancel);  
-        //取消按钮  
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-  
-            public void onClick(View v) {  
-                //销毁弹出框  
-                dismiss();  
-            }  
-        });  
+        mMenuView = inflater.inflate(R.layout.alert_sex_dialog, null);
+        bt_nan = (Button) mMenuView.findViewById(R.id.bt_nan);
+        bt_nv = (Button) mMenuView.findViewById(R.id.bt_nv);
+
         //设置按钮监听  
-        btn_pick_photo.setOnClickListener(itemsOnClick);  
-        btn_take_photo.setOnClickListener(itemsOnClick);  
+        bt_nan.setOnClickListener(itemsOnClick);
+        bt_nv.setOnClickListener(itemsOnClick);
         //设置SelectPicPopupWindow的View  
         this.setContentView(mMenuView);  
         //设置SelectPicPopupWindow弹出窗体的宽  

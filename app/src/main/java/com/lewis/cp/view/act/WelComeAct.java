@@ -16,6 +16,7 @@ import com.lewis.cp.MainActivity;
 import com.lewis.cp.R;
 import com.lewis.cp.base.BaseActivity;
 
+import com.lewis.cp.model.Bomb;
 import com.lewis.cp.model.UserModel;
 
 import com.yanzhenjie.permission.AndPermission;
@@ -28,6 +29,9 @@ import java.util.List;
 import butterknife.BindView;
 
 import butterknife.OnClick;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 
 
 /**
@@ -37,11 +41,13 @@ import butterknife.OnClick;
 public class WelComeAct extends BaseActivity {
     @BindView(R.id.tv)
     TextView tv;
+    private boolean is_bomb=false;
 
     private String isLogin="";
 
     @Override
     protected void initData() {
+        getExplose();
         timer.start();
     }
 
@@ -82,14 +88,16 @@ public class WelComeAct extends BaseActivity {
 
         @Override
         public void onFinish() {
+                if (!is_bomb){
+                    if ("Y".equals(isLogin)){
+                        startActivity(MainActivity.class);
 
-               if ("Y".equals(isLogin)){
-                       startActivity(MainActivity.class);
+                    }else {
+                        startActivity(LoginAct.class);
+                    }
+                    finish();
+                }
 
-               }else {
-                   startActivity(LoginAct.class);
-               }
-            finish();
         }
     };
 
@@ -98,13 +106,16 @@ public class WelComeAct extends BaseActivity {
     @OnClick(R.id.tv)
     public void onViewClicked() {
         timer.cancel();
-        if ("Y".equals(isLogin)){
-            startActivity(MainActivity.class);
+        if (!is_bomb){
+            if ("Y".equals(isLogin)){
+                startActivity(MainActivity.class);
 
-        }else {
-            startActivity(LoginAct.class);
+            }else {
+                startActivity(LoginAct.class);
+            }
+            finish();
         }
-        finish();
+
 
     }
 
@@ -113,4 +124,23 @@ public class WelComeAct extends BaseActivity {
         super.onDestroy();
         timer.cancel();
     }
+    private void  getExplose(){
+        //查找Person表里面id为6b6c11c537的数据
+        BmobQuery<Bomb> bmobQuery = new BmobQuery<Bomb>();
+        bmobQuery.getObject("Nwxu666E", new QueryListener<Bomb>() {
+            @Override
+            public void done(Bomb object,BmobException e) {
+                if(e==null){
+                    if (object.isIs_bomb()){
+                        is_bomb=true;
+                    }else {
+                        is_bomb=false;
+                    }
+                }else{
+
+                }
+            }
+        });
+    }
+
 }

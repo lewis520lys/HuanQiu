@@ -6,25 +6,40 @@ import android.os.Bundle;
 
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.lewis.cp.base.AppConfig;
 import com.lewis.cp.base.BaseApplication;
+import com.lewis.cp.http.APIService;
+import com.lewis.cp.http.RetrofitManager;
+import com.lewis.cp.model.BaseCallModel;
+import com.lewis.cp.model.GroupModel;
 import com.lewis.cp.model.UserModel;
+import com.lewis.cp.utils.ImageToBase;
 import com.lewis.cp.view.act.ComWebAct;
 import com.lewis.cp.view.act.QunDetialAct;
 import com.lewis.cp.widget.ACache;
 import com.lewis.cp.widget.ToupiaoPopupWindow;
 import com.lewis.cp.widget.ZhiboPopupWindow;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * Created by Administrator on 2018/1/29.
  */
 
 public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
-    String managerId="45022";
+    String managerId="";
     private ToupiaoPopupWindow toupiaoPopupWindow;
     private ACache cache;
     private UserModel.UserBean user;
+    private String userId;
+    private GroupModel body;
 
 
     @Override
@@ -33,10 +48,12 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
         cache = ACache.get(BaseApplication.getContext());
         user = (UserModel.UserBean) cache.getAsObject("user");
         final Bundle bundle = getArguments();
-        final String userId = bundle.getString("userId");
+        userId = bundle.getString("userId");
         titleBar.setTitle(userId);
+        joinGroup();
         titleBar.setBackgroundColor(Color.parseColor("#373A41"));
         toupiaoPopupWindow = new ToupiaoPopupWindow(getActivity());
+
         touzhu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +64,7 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
         zhibo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               new ZhiboPopupWindow(getActivity()).showAsDropDown(tv_head);
+               new ZhiboPopupWindow(getActivity(),body.rmtpUrl).showAsDropDown(tv_head);
             }
         });
         titleBar.setRightLayoutClickListener(new View.OnClickListener() {
@@ -64,8 +81,8 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
             public void onClick(View view) {
                 Intent intent =new Intent(getActivity(), ComWebAct.class);
                 Bundle budle=new Bundle();
-                budle.putString("title","路单");
-                budle.putString("url", AppConfig.BASE_URL+"ludan?managerId="+managerId);
+                budle.putString("title","本局");
+                budle.putString("url", body.betUrl);
                 intent.putExtras(budle);
                 startActivity(intent);
             }
@@ -73,10 +90,11 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
         ludan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent =new Intent(getActivity(), ComWebAct.class);
                 Bundle budle=new Bundle();
-                budle.putString("title","本局");
-                budle.putString("url", AppConfig.BASE_URL+"currentRecord?managerId="+managerId+"&userName="+user.userName);
+                budle.putString("title","路单");
+                budle.putString("url", AppConfig.BASE_URL+"ludan?managerId="+managerId);
                 intent.putExtras(budle);
                 startActivity(intent);
             }
@@ -101,6 +119,38 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
                 msg="";
             }
         });
+
+    }
+    private void joinGroup(){
+        Map<String, String> map = new HashMap<>();
+        map.put("userName", user.userName);
+        map.put("groupId", userId);
+
+        RetrofitManager.getInstance()
+                .createReq(APIService.class)
+                .joinGroup(map)
+                .enqueue(new Callback<GroupModel>() {
+                    @Override
+                    public void onResponse(Call<GroupModel> call, Response<GroupModel> response) {
+                        body = response.body();
+                        if (body != null) {
+                            Toast.makeText(getActivity(), body.info,Toast.LENGTH_LONG).show();
+                            managerId=body.managerId;
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    toupiaoPopupWindow.tvYue.setText(body.balance);
+                                }
+                            });
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<GroupModel> call, Throwable t) {
+
+                    }
+                });
 
     }
 }

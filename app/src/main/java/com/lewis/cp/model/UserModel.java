@@ -38,7 +38,7 @@ public class UserModel implements Serializable{
         public String userName;
         public String nickName;
         public String headImg;
-        public Object sex;
+        public int sex;
         public String loginToken;
         public String hxpass;
 

@@ -76,9 +76,10 @@ public abstract class BaseActivity extends AutoLayoutActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         mCache=ACache.get(this);
+        user = (UserModel.UserBean) mCache.getAsObject("user");
         initView();
         initData();
-        user = (UserModel.UserBean) mCache.getAsObject("user");
+
         baseApp.addActivity(this);
     }
 

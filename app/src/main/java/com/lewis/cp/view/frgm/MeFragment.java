@@ -8,11 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMClient;
 import com.lewis.cp.R;
 import com.lewis.cp.base.AppConfig;
 import com.lewis.cp.base.BaseApplication;
 import com.lewis.cp.base.BaseFragment;
+import com.lewis.cp.http.APIService;
+import com.lewis.cp.http.RetrofitManager;
+import com.lewis.cp.model.CurdUserBean;
 import com.lewis.cp.model.UserModel;
 import com.lewis.cp.view.act.ComWebAct;
 import com.lewis.cp.view.act.ForgetPwdAct;
@@ -22,10 +26,17 @@ import com.lewis.cp.view.act.UserInfoAct;
 import com.lewis.cp.widget.ACache;
 import com.lewis.cp.widget.CircleImageView;
 
+
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Administrator on 2018/1/23.
@@ -61,6 +72,7 @@ public class MeFragment extends BaseFragment {
         tvTitle.setText("我的");
         cache = ACache.get(BaseApplication.getContext());
         user = (UserModel.UserBean) cache.getAsObject("user");
+        requestData();
     }
 
 
@@ -119,5 +131,37 @@ public class MeFragment extends BaseFragment {
 
                 break;
         }
+    }
+    private void requestData(){
+        Map<String, String> map = new HashMap<>();
+        map.put("userName", user.userName);
+
+        RetrofitManager.getInstance()
+                .createReq(APIService.class)
+                .requestUserInfo(map)
+                .enqueue(new Callback<CurdUserBean>() {
+                    @Override
+                    public void onResponse(Call<CurdUserBean> call, Response<CurdUserBean> response) {
+                        final CurdUserBean body = response.body();
+                        if (body != null) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Glide.with(getActivity()).load(body.headImg).into(ivHead);
+                                    tvName.setText(body.nickName);
+                                    tvId.setText(body.userId+"");
+                                }
+                            });
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<CurdUserBean> call, Throwable t) {
+
+                    }
+                });
+
     }
 }

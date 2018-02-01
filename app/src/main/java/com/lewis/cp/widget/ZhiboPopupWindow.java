@@ -24,10 +24,10 @@ public class ZhiboPopupWindow extends PopupWindow {
     private IjkVideoView videoView;
 
 
-    public ZhiboPopupWindow(Activity context) {
+    public ZhiboPopupWindow(Activity context,String URL) {
         super(context);
         // TODO Auto-generated constructor stub
-        init(context);
+        init(context,URL);
         setPopupWindow();
     }
 
@@ -36,7 +36,7 @@ public class ZhiboPopupWindow extends PopupWindow {
      *
      * @param
      */
-    private void init(Activity activity) {
+    private void init(Activity activity,String URL) {
         // TODO Auto-generated method stub
         LayoutInflater inflater = LayoutInflater.from(activity);
         //绑定布局
@@ -47,7 +47,7 @@ public class ZhiboPopupWindow extends PopupWindow {
         IjkMediaPlayer.loadLibrariesOnce(null);
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
 
-        videoView.setVideoPath("rtmp://vhbh.vip136.net:1935/live/7005");
+        videoView.setVideoPath(URL);
 
         videoView.start();
     /*会有几秒延时*/

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:background="@color/wihte"
+        android:id="@+id/pop_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+
+        >
+        <Button
+
+            android:id="@+id/bt_nan"
+            android:background="@color/wihte"
+            android:textColor="#BB7567"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/d90"
+            android:text="男"
+            android:textStyle="bold"
+            />
+        <View
+            android:background="#E3E3E3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d1"/>
+        <Button
+            android:id="@+id/bt_nv"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/d90"
+            android:text="女"
+            android:background="@color/wihte"
+            android:textColor="#BB7567"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+</RelativeLayout>
