@@ -5,6 +5,7 @@ import com.lewis.cp.model.CurdUserBean;
 import com.lewis.cp.model.GroupModel;
 import com.lewis.cp.model.HomeBean;
 
+import com.lewis.cp.model.TouZhuBean;
 import com.lewis.cp.model.UserModel;
 import com.lewis.cp.model.WelcomeBean;
 
@@ -66,4 +67,10 @@ public interface APIService {
   @FormUrlEncoded
   @POST("businessUser/joinGroup")
   Call<GroupModel> joinGroup(@FieldMap Map<String, String> map);
+  //投注
+  @FormUrlEncoded
+  @POST("businessUser/confirmBet")
+  Call<TouZhuBean> TouZhu(@FieldMap Map<String, String> map);
+
+
 }

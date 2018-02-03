@@ -20,6 +20,7 @@ import com.lewis.cp.http.APIService;
 import com.lewis.cp.http.RetrofitManager;
 import com.lewis.cp.model.BaseCallModel;
 import com.lewis.cp.model.GroupModel;
+import com.lewis.cp.model.TouZhuBean;
 import com.lewis.cp.model.UserModel;
 import com.lewis.cp.utils.Constant;
 import com.lewis.cp.utils.ImageToBase;
@@ -29,6 +30,8 @@ import com.lewis.cp.view.act.QunDetialAct;
 import com.lewis.cp.widget.ACache;
 import com.lewis.cp.widget.ToupiaoPopupWindow;
 import com.lewis.cp.widget.ZhiboPopupWindow;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +53,13 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
     private String userId;
     private GroupModel body;
     private EMGroup group;
+    private String banker="";
+    private String player="";
+    private String pair="";
+    private String bankerPair="";
+    private String playerPair="";
+    private String bpPair="";
+    private String sanBao="";
 
 
     @Override
@@ -121,13 +131,15 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
                 String xd = toupiaoPopupWindow.tv_xiandui.getText().toString().trim();
                 String zxd = toupiaoPopupWindow.tv_zhuangxiandui.getText().toString().trim();
                 String sb = toupiaoPopupWindow.tv_sanbao.getText().toString().trim();
-
+                banker=z.replace("庄:","").replace(";","");
+                player=x.replace("闲:","").replace(";","");
                 String msg=z+h+x+zd+xd+zxd+sb;
                 String[] split = msg.split("android.support");
                 sendTextMessage(split[0]);
+                xiazhu();
                 toupiaoPopupWindow.dismiss();
                 toupiaoPopupWindow.delectAll();
-                msg="";
+
             }
         });
         guanli.setOnClickListener(new View.OnClickListener() {
@@ -139,45 +151,10 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
                 startActivity(intent);
             }
         });
-       listerMes();
-    }
-
-    private void listerMes() {
-        EMClient.getInstance().chatManager().addMessageListener(msgListener);
 
     }
-    EMMessageListener msgListener = new EMMessageListener() {
 
-        @Override
-        public void onMessageReceived(List<EMMessage> messages) {
-            //收到消息
-            Log.e("msg",messages.toString());
-        }
 
-        @Override
-        public void onCmdMessageReceived(List<EMMessage> messages) {
-            //收到透传消息
-        }
-
-        @Override
-        public void onMessageRead(List<EMMessage> messages) {
-            //收到已读回执
-        }
-
-        @Override
-        public void onMessageDelivered(List<EMMessage> message) {
-            //收到已送达回执
-        }
-        @Override
-        public void onMessageRecalled(List<EMMessage> messages) {
-            //消息被撤回
-        }
-
-        @Override
-        public void onMessageChanged(EMMessage message, Object change) {
-            //消息状态变动
-        }
-    };
     private  void checkGroupId(){
         new Thread(new Runnable() {
             @Override
@@ -223,10 +200,35 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
                 });
 
     }
+    private void xiazhu(){
+        Map<String, String> map = new HashMap<>();
+        map.put("userName", user.userName);
+        map.put("managerId", managerId);
+        map.put("banker", banker);//庄
+        map.put("player", player);//闲
+        map.put("pair", pair);//和
+        map.put("bankerPair", bankerPair);//庄对
+        map.put("playerPair", playerPair);//闲对
+        map.put("bpPair", bpPair);//庄闲对
+        map.put("sanBao", sanBao);//三宝
+        Log.e("map",map.toString());
+        RetrofitManager.getInstance()
+                .createReq(APIService.class)
+                .TouZhu(map)
+                .enqueue(new Callback<TouZhuBean>() {
+                    @Override
+                    public void onResponse(Call<TouZhuBean> call, Response<TouZhuBean> response) {
+                        TouZhuBean body = response.body();
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EMClient.getInstance().chatManager().removeMessageListener(msgListener);
+                    }
+
+                    @Override
+                    public void onFailure(Call<TouZhuBean> call, Throwable t) {
+                            Log.e("ss",t.toString());
+                    }
+                });
+
     }
+
+
 }

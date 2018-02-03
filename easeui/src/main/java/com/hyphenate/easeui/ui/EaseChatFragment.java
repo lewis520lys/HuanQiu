@@ -10,10 +10,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -61,7 +63,9 @@ import com.hyphenate.util.EMLog;
 import com.hyphenate.util.PathUtil;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -125,6 +129,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected TextView zhibo;
     protected TextView ludan;
     protected TextView tv_head;
+    protected TextView tv_time;
     protected RelativeLayout root;
     public TextView benju;
     public TextView guanli;
@@ -167,6 +172,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         zhibo = (TextView) getView().findViewById(R.id.zhibo);
         ludan = (TextView) getView().findViewById(R.id.ludan);
         tv_head = (TextView) getView().findViewById(R.id.tv_head);
+        tv_time = (TextView) getView().findViewById(R.id.tv_time);
         root = (RelativeLayout) getView().findViewById(R.id.root);
         ll_right = (LinearLayout) getView().findViewById(R.id.ll_right);
         ll_head = (LinearLayout) getView().findViewById(R.id.ll_head);
@@ -596,6 +602,27 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     @Override
     public void onMessageReceived(List<EMMessage> messages) {
         for (EMMessage message : messages) {
+            HashMap<String, Object> ext = (HashMap<String, Object>) message.ext();
+            if (ext!=null){
+                String tips = ext.get("tips").toString();
+                String type = ext.get("type").toString();
+                String time = ext.get("times").toString();
+                totalTime = Long.parseLong(time);
+                if (type.equals("1")){
+                    ll_head.setVisibility(View.VISIBLE);
+                }
+                if (type.equals("5")){
+                    ll_head.setVisibility(View.INVISIBLE);
+                }
+                tv_head.setText(tips);
+               handler.post(new Runnable() {
+                   @Override
+                   public void run() {
+                       timer.start();
+                   }
+               });
+            }
+
             String username = null;
             // group message
             if (message.getChatType() == ChatType.GroupChat || message.getChatType() == ChatType.ChatRoom) {
@@ -615,6 +642,20 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             }
         }
     }
+    long  totalTime=0;
+    private CountDownTimer timer = new CountDownTimer(10000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            tv_time.setText((millisUntilFinished / 1000) + "秒");
+        }
+
+        @Override
+        public void onFinish() {
+
+            tv_time.setVisibility(View.INVISIBLE);
+        }
+    };
 
     @Override
     public void onCmdMessageReceived(List<EMMessage> messages) {
