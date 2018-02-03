@@ -133,6 +133,11 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
                 String sb = toupiaoPopupWindow.tv_sanbao.getText().toString().trim();
                 banker=z.replace("庄:","").replace(";","");
                 player=x.replace("闲:","").replace(";","");
+                pair=h.replace("和:","").replace(";","");
+                bankerPair=zd.replace("庄对:","").replace(";","");
+                playerPair=xd.replace("闲对:","").replace(";","");
+                bpPair=zxd.replace("庄闲对:","").replace(";","");
+                sanBao=sb.replace("三宝:","").replace(";","");
                 String msg=z+h+x+zd+xd+zxd+sb;
                 String[] split = msg.split("android.support");
                 sendTextMessage(split[0]);
@@ -219,7 +224,10 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
                     @Override
                     public void onResponse(Call<TouZhuBean> call, Response<TouZhuBean> response) {
                         TouZhuBean body = response.body();
-
+                         if (body!=null){
+                             Toast.makeText(getActivity(),body.info,Toast.LENGTH_LONG).show();
+                             toupiaoPopupWindow.tvYue.setText(body.balance);
+                         }
                     }
 
                     @Override

@@ -3,6 +3,8 @@ package com.hyphenate.easeui.widget.presenter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Log;
 import android.widget.BaseAdapter;
 
 import com.hyphenate.EMCallBack;
@@ -11,10 +13,12 @@ import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.ui.EaseShowBigImageActivity;
+import com.hyphenate.easeui.ui.WebAct;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowImage;
 
 import java.io.File;
+import java.util.HashMap;
 
 /**
  * Created by zhangsong on 17-10-12.
@@ -90,6 +94,18 @@ public class EaseChatImagePresenter extends EaseChatFilePresenter {
                 e.printStackTrace();
             }
         }
-        getContext().startActivity(intent);
+        HashMap<String, Object> ext = (HashMap<String, Object>) message.ext();
+        Log.e("ext",ext.toString());
+        if (ext!=null){
+            String url = ext.get("url").toString();
+            if (!TextUtils.isEmpty(url)){
+                Intent intent1 = new Intent(getContext(),WebAct.class);
+            }else {
+                getContext().startActivity(intent);
+            }
+        }else {
+            getContext().startActivity(intent);
+        }
+
     }
 }

@@ -618,6 +618,19 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                handler.post(new Runnable() {
                    @Override
                    public void run() {
+                      timer= new CountDownTimer(totalTime*1000, 1000) {
+
+                           @Override
+                           public void onTick(long millisUntilFinished) {
+                               tv_time.setText((millisUntilFinished / 1000) + "秒");
+                           }
+
+                           @Override
+                           public void onFinish() {
+
+                               tv_time.setVisibility(View.INVISIBLE);
+                           }
+                       };
                        timer.start();
                    }
                });
@@ -643,19 +656,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         }
     }
     long  totalTime=0;
-    private CountDownTimer timer = new CountDownTimer(10000, 1000) {
 
-        @Override
-        public void onTick(long millisUntilFinished) {
-            tv_time.setText((millisUntilFinished / 1000) + "秒");
-        }
-
-        @Override
-        public void onFinish() {
-
-            tv_time.setVisibility(View.INVISIBLE);
-        }
-    };
+    private CountDownTimer timer;
 
     @Override
     public void onCmdMessageReceived(List<EMMessage> messages) {
