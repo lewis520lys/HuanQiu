@@ -4,6 +4,7 @@
     android:background="@mipmap/welcom"
     android:layout_height="match_parent">
     <TextView
+        android:textSize="@dimen/d20"
         android:id="@+id/tv"
         android:background="@drawable/time_shap"
         android:gravity="center"

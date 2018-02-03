@@ -15,11 +15,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.util.NetUtils;
 import com.lewis.cp.MainActivity;
 import com.lewis.cp.http.APIService;
 import com.lewis.cp.http.RetrofitManager;
 import com.lewis.cp.model.UserModel;
 import com.lewis.cp.model.WelcomeBean;
+import com.lewis.cp.view.act.LoginAct;
 import com.lewis.cp.widget.ACache;
 import com.zhy.autolayout.AutoLayoutActivity;
 
@@ -79,10 +84,47 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         user = (UserModel.UserBean) mCache.getAsObject("user");
         initView();
         initData();
-
+        registerConlectLis();
         baseApp.addActivity(this);
     }
+//注册一个监听连接状态的listener
+    private void registerConlectLis(){
+        //注册一个监听连接状态的listener
+        EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+    }
+    //实现ConnectionListener接口
+    private class MyConnectionListener implements EMConnectionListener {
+        @Override
+        public void onConnected() {
+        }
+        @Override
+        public void onDisconnected(final int error) {
+            runOnUiThread(new Runnable() {
 
+                @Override
+                public void run() {
+                    if(error == EMError.USER_REMOVED){
+                        // 显示帐号已经被移除
+                    }else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                        showToast("帐号在其他设备登录");
+                        BaseApplication.getInstance().finishAllActivities();
+                        startActivity(LoginAct.class);
+
+                    } else {
+                        if (NetUtils.hasNetwork(getApplicationContext())){
+                            //连接不到聊天服务器
+                        }
+
+                         else{
+                            //当前网络不可用，请检查网络设置
+                            showToast("当前网络不可用，请检查网络设置");
+                        }
+
+                    }
+                }
+            });
+        }
+    }
     protected abstract void initData();
 
     protected abstract void initView();

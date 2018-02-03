@@ -12,12 +12,11 @@ import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.hyphenate.EMClientListener;
-import com.hyphenate.chat.EMClient;
+
 import com.lewis.cp.base.BaseActivity;
 import com.lewis.cp.view.frgm.HomeFragment;
 import com.lewis.cp.view.frgm.MeFragment;
-import com.lewis.cp.view.frgm.ChartFragment;
+
 import com.lewis.cp.view.frgm.YuleFragment;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
@@ -35,6 +34,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private HomeFragment homeFragment;
     private YuleFragment yuleFragment;
     private MeFragment meFragment;
+
     private int lastSelectedPosition=0;
     private int currentTabIndex=0;
 
@@ -87,7 +87,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                         Manifest.permission.READ_PHONE_STATE,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.RECORD_AUDIO
                        )
                 .requestCode(200)
                 .callback(listener)

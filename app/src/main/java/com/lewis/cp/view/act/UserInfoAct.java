@@ -33,8 +33,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import butterknife.OnClick;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -155,6 +158,7 @@ public class UserInfoAct extends BaseActivity {
 
     private int IMAGE_PICKER=111;//相册
     private int REQUEST_CODE_SELECT=112;//相机
+
     //为弹出窗口实现监听类
     private View.OnClickListener itemsOnClick = new View.OnClickListener(){
 
@@ -193,36 +197,36 @@ public class UserInfoAct extends BaseActivity {
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             if (data != null) {
                 images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-                Glide.with(getApplicationContext()).load(new File(images.get(0).path)).placeholder(R.mipmap.ic_launcher).into(ivHead);
+                Glide.with(getApplicationContext()).load(new File(images.get(0).path)).placeholder(R.mipmap.head_default).into(ivHead);
 
-                uploadPic();
+                compress(images.get(0).path);
             } else {
                 Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void compress() {
-//        Luban.with(this)
-//                .load(photos)                                   // 传人要压缩的图片列表
-//                .ignoreBy(100)                                  // 忽略不压缩图片的大小
-//                .setTargetDir(getPath())                        // 设置压缩后文件存储位置
-//                .setCompressListener(new OnCompressListener() { //设置回调
-//                    @Override
-//                    public void onStart() {
-//                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(File file) {
-//                        // TODO 压缩成功后调用，返回压缩后的图片文件
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        // TODO 当压缩过程出现问题时调用
-//                    }
-//                }).launch();    //启动压缩
+    private void compress(String path) {
+        Luban.with(this)
+                .load(path)                     //传人要压缩的图片
+                .ignoreBy(200)        //设定压缩档次，默认三挡
+                .setCompressListener(new OnCompressListener() { //设置回调
+
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+                    @Override
+                    public void onSuccess(File file) {
+                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                        uploadPic(file.getPath());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过去出现问题时调用
+                    }
+                }).launch();    //启动压缩
 //    //  File newFile = new CompressHelper.Builder(this)
 ////                .setMaxWidth(720)  // 默认最大宽度为720
 ////                .setMaxHeight(960) // 默认最大高度为960
@@ -234,15 +238,16 @@ public class UserInfoAct extends BaseActivity {
 ////                .build()
 ////                .compressToFile(oldFile);
     }
-
-    private void uploadPic(){
-        Map<String, String> map = new HashMap<>();
-        map.put("userName", user.userName);
-        map.put("imgStr", ImageToBase.getImgStr(images.get(0).path));
-
+    public static final MediaType JSON= MediaType.parse("application/json; charset=utf-8");
+    private void uploadPic(String p){
+//        Map<String, String> map = new HashMap<>();
+//        map.put("userName", user.userName);
+//        map.put("imgStr", ImageToBase.getImgStr(images.get(0).path));
+        String json="{\"userName\":\""+user.userName+"\",\"imgStr\":\""+ImageToBase.getImgStr(p)+"\"}";
+        RequestBody body = RequestBody.create(JSON,json);
         RetrofitManager.getInstance()
                 .createReq(APIService.class)
-                .unLoadPic(map)
+                .unLoadPic(body)
                 .enqueue(new Callback<BaseCallModel>() {
                     @Override
                     public void onResponse(Call<BaseCallModel> call, Response<BaseCallModel> response) {
@@ -265,6 +270,7 @@ public class UserInfoAct extends BaseActivity {
         Map<String, String> map = new HashMap<>();
         map.put("userName", user.userName);
 
+
         RetrofitManager.getInstance()
                 .createReq(APIService.class)
                 .requestUserInfo(map)
@@ -276,7 +282,7 @@ public class UserInfoAct extends BaseActivity {
                            runOnUiThread(new Runnable() {
                                @Override
                                public void run() {
-                                   Glide.with(UserInfoAct.this).load(body.headImg).into(ivHead);
+                                   Glide.with(UserInfoAct.this).load(body.headImg).placeholder(R.mipmap.head_default).into(ivHead);
                                    if (body.sex==1){
                                        tvSex.setText("女");
                                    }else {

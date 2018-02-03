@@ -10,11 +10,14 @@ import com.lewis.cp.model.WelcomeBean;
 
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 
@@ -48,9 +51,9 @@ public interface APIService {
   @POST("businessUser/feedback")
   Call<BaseCallModel> jianYiReq(@FieldMap Map<String, String> map);
   //上传图片
-  @FormUrlEncoded
+  @Headers("Content-Type: application/json")
   @POST("businessUser/uploadHead")
-  Call<BaseCallModel> unLoadPic(@FieldMap Map<String, String> map);
+  Call<BaseCallModel> unLoadPic(@Body RequestBody body);
   //修改个人信息
   @FormUrlEncoded
   @POST("businessUser/updateUser")

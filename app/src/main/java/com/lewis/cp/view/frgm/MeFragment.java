@@ -72,9 +72,14 @@ public class MeFragment extends BaseFragment {
         tvTitle.setText("我的");
         cache = ACache.get(BaseApplication.getContext());
         user = (UserModel.UserBean) cache.getAsObject("user");
-        requestData();
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        requestData();
+    }
 
     @Override
     protected int getLayout() {
@@ -147,7 +152,7 @@ public class MeFragment extends BaseFragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Glide.with(getActivity()).load(body.headImg).into(ivHead);
+                                    Glide.with(getActivity()).load(body.headImg).placeholder(R.mipmap.head_default).into(ivHead);
                                     tvName.setText(body.nickName);
                                     tvId.setText(body.userId+"");
                                 }

@@ -10,7 +10,9 @@ import com.hyphenate.util.EasyUtils;
 import com.lewis.cp.MainActivity;
 import com.lewis.cp.R;
 import com.lewis.cp.base.BaseActivity;
+import com.lewis.cp.utils.Constant;
 import com.lewis.cp.view.frgm.ChartFragment;
+import com.lewis.cp.view.frgm.ChartMangerFragment;
 
 
 /**
@@ -36,7 +38,12 @@ public class ChatActivity extends BaseActivity{
         //get user id or group id
         toChatUsername = getIntent().getExtras().getString("userId");
         //use EaseChatFratFragment
-        chatFragment = new ChartFragment();
+        if (getIntent().getExtras().getInt(Constant.EXTRA_CHAT_TYPE)==1){
+            chatFragment = new ChartMangerFragment();
+        }else {
+            chatFragment = new ChartFragment();
+        }
+
         //pass parameters to chat fragment
         chatFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();

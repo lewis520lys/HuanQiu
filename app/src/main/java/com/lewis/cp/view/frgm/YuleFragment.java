@@ -129,6 +129,8 @@ public class YuleFragment extends EaseConversationListFragment {
                             intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_GROUP);
                         }
 
+                    }else {
+                        intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_SINGLE);
                     }
                     // it's single chat
                     intent.putExtra(Constant.EXTRA_USER_ID, username);

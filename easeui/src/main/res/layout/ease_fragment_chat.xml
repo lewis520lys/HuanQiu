@@ -43,6 +43,7 @@
             android:layout_centerInParent="true"
             android:visibility="invisible" />
         <LinearLayout
+            android:id="@+id/ll_right"
             android:layout_marginTop="50dp"
             android:layout_alignParentRight="true"
             android:orientation="vertical"
@@ -112,6 +113,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_head"
             android:background="@color/black_deep"
             android:alpha="0.3"
             android:gravity="center"

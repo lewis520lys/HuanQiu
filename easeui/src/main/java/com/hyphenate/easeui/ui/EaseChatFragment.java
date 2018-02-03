@@ -3,6 +3,7 @@ package com.hyphenate.easeui.ui;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,6 +23,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -126,6 +128,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected RelativeLayout root;
     public TextView benju;
     public TextView guanli;
+    public LinearLayout ll_right;
+    public LinearLayout ll_head;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -164,6 +168,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         ludan = (TextView) getView().findViewById(R.id.ludan);
         tv_head = (TextView) getView().findViewById(R.id.tv_head);
         root = (RelativeLayout) getView().findViewById(R.id.root);
+        ll_right = (LinearLayout) getView().findViewById(R.id.ll_right);
+        ll_head = (LinearLayout) getView().findViewById(R.id.ll_head);
+
 
         // message list layout
         messageList = (EaseChatMessageList) getView().findViewById(R.id.message_list);
@@ -666,7 +673,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 selectPicFromLocal();
                 break;
             case ITEM_LOCATION:
-                startActivityForResult(new Intent(getActivity(), EaseBaiduMapActivity.class), REQUEST_CODE_MAP);
+             startActivityForResult(new Intent(getActivity(), EaseBaiduMapActivity.class), REQUEST_CODE_MAP);
                 break;
 
             default:
@@ -881,9 +888,19 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 + System.currentTimeMillis() + ".jpg");
         //noinspection ResultOfMethodCallIgnored
         cameraFile.getParentFile().mkdirs();
-        startActivityForResult(
-                new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)),
-                REQUEST_CODE_CAMERA);
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            ContentValues contentValues=new ContentValues(1);
+            contentValues.put(MediaStore.Images.Media.DATA,cameraFile.getAbsolutePath());
+            Uri uri=getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+            startActivityForResult(intent,REQUEST_CODE_CAMERA);
+        }else {
+            startActivityForResult(
+                    new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)),
+                    REQUEST_CODE_CAMERA);
+        }
+
     }
 
     /**

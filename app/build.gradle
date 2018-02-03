@@ -7,13 +7,14 @@ android {
         applicationId "com.lewis.cp"
         minSdkVersion 16
         targetSdkVersion 26
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi", "armeabi-v7a","x86"
         }
-        multiDexEnabled true
+
     }
     buildTypes {
         release {
@@ -27,6 +28,13 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+//    dexOptions {
+//        javaMaxHeapSize "4g" //specify the heap size for the dex process
+//    }
 }
 
 dependencies {
@@ -39,10 +47,14 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+
+  // compile 'com.google.code.gson:gson:2.6.2'
+    compile('com.squareup.retrofit2:retrofit:2.1.0')
+            { exclude group: 'com.squareup.okhttp3' }
+    compile('com.squareup.retrofit2:converter-gson:2.1.0')
+            { exclude group: 'com.google.code.gson'
+                exclude group: 'com.squareup.okhttp3' }
+   // compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.ashokvarma.android:bottom-navigation-bar:2.0.3'
     compile 'com.zhy:autolayout:1.4.5'
     compile 'com.yanzhenjie:permission:1.1.2'
@@ -50,7 +62,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:9.4.0'
     // compile 'com.hyphenate:hyphenate-sdk:3.3.0'
     compile 'com.youth.banner:banner:1.4.9'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+
     compile 'com.github.jdsjlzx:LRecyclerView:1.4.3'
     //    # required, enough for most devices.
     compile 'tv.danmaku.ijk.media:ijkplayer-java:0.6.1'
@@ -70,6 +82,7 @@ dependencies {
     //3.5.5：请务必查看下面注释[1]
     compile 'cn.bmob.android:bmob-sdk:3.5.5'
 
-    //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
-    compile 'cn.bmob.android:http-legacy:1.0'
+//    //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
+//    compile ('cn.bmob.android:http-legacy:1.0')
+//            { exclude group: 'com.android.internal.http.multipart'}
 }

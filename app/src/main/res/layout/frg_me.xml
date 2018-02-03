@@ -15,7 +15,7 @@
        <com.lewis.cp.widget.CircleImageView
             android:id="@+id/iv_head"
            android:layout_centerVertical="true"
-           android:src="@drawable/ic_launcher"
+           android:src="@mipmap/head_default"
            android:layout_width="@dimen/d90"
            android:layout_height="@dimen/d90" />
         <LinearLayout

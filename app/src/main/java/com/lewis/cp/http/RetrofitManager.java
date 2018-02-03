@@ -5,9 +5,11 @@ import com.lewis.cp.base.AppConfig;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.GsonConverterFactory;
+
+
+
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitManager {
     private static RetrofitManager mRetrofitManager;
@@ -26,14 +28,9 @@ public class RetrofitManager {
 
     
     private void initRetrofit() {
-        HttpLoggingInterceptor LoginInterceptor = new HttpLoggingInterceptor();
-        LoginInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        if (true){
-            builder.addInterceptor(LoginInterceptor); //添加retrofit日志打印
-        }
 
-        
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(15, TimeUnit.SECONDS);
         builder.readTimeout(20, TimeUnit.SECONDS);
         builder.writeTimeout(20, TimeUnit.SECONDS);
