@@ -254,9 +254,7 @@ public class UserInfoAct extends BaseActivity {
                         BaseCallModel body = response.body();
                         if (body != null) {
                             showToast(response.body().info);
-
                         }
-
                     }
 
                     @Override

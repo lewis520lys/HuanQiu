@@ -22,9 +22,8 @@
         android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/laucher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
@@ -42,7 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.act.ChatActivity" />
+        <activity android:name=".view.act.ChatActivity" ></activity>
         <activity android:name=".view.act.ComWebAct" />
         <activity android:name=".view.act.JianyiAct" />
         <activity android:name=".view.act.QunDetialAct" />

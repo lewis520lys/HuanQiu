@@ -89,7 +89,7 @@
             android:id="@+id/bt_exit"
             android:text="退出该群"
             android:textColor="@color/wihte"
-            android:background="@color/comColor"
+            android:background="@drawable/bt_shap"
             android:layout_width="@dimen/d224"
             android:layout_height="@dimen/d66" />
     </RelativeLayout>

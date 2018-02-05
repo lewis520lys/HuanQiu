@@ -1,5 +1,6 @@
 package com.lewis.cp.view.act;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,11 +10,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMClient;
 import com.lewis.cp.R;
 import com.lewis.cp.base.BaseActivity;
+import com.lewis.cp.base.BaseApplication;
 import com.lewis.cp.http.APIService;
 import com.lewis.cp.http.RetrofitManager;
 import com.lewis.cp.model.BaseCallModel;
+import com.lewis.cp.widget.ACache;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -144,7 +148,10 @@ public class ForgetPwdAct extends BaseActivity {
                         if (body != null) {
                             showToast(response.body().info);
                             if ("N".equals(response.body().hasException)) {
-                                finish();
+                                BaseApplication.getInstance().finishAllActivities();
+                                startActivity(LoginAct.class);
+                                EMClient.getInstance().logout(true);
+                                ACache.get(ForgetPwdAct.this).clear();
                             }
                         }
 
@@ -172,7 +179,7 @@ public class ForgetPwdAct extends BaseActivity {
                         if (body != null) {
                             showToast(response.body().info);
                             if ("N".equals(response.body().hasException)) {
-                                finish();
+                               finish();
                             }
                         }
 

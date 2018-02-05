@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.hyphenate.EMMessageListener;
@@ -70,6 +72,7 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
         final Bundle bundle = getArguments();
         userId = bundle.getString("userId");
         titleBar.setTitle(userId);
+
         joinGroup();
         checkGroupId();
         titleBar.setBackgroundColor(Color.parseColor("#373A41"));
@@ -92,7 +95,6 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(getActivity(), QunDetialAct.class);
-
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -177,7 +179,6 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
         Map<String, String> map = new HashMap<>();
         map.put("userName", user.userName);
         map.put("groupId", userId);
-
         RetrofitManager.getInstance()
                 .createReq(APIService.class)
                 .joinGroup(map)
@@ -226,7 +227,9 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
                         TouZhuBean body = response.body();
                          if (body!=null){
                              Toast.makeText(getActivity(),body.info,Toast.LENGTH_LONG).show();
-                             toupiaoPopupWindow.tvYue.setText(body.balance);
+                             if (!TextUtils.isEmpty(body.balance)){
+                                 toupiaoPopupWindow.tvYue.setText(body.balance);
+                             }
                          }
                     }
 

@@ -89,8 +89,19 @@ public class YuleFragment extends EaseConversationListFragment {
                         if (body != null) {
                             Toast.makeText(getActivity(),response.body().info,Toast.LENGTH_SHORT).show();
                             if ("N".equals(response.body().hasException)) {
-                                dialog.dismiss();
-                                refresh();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+                                       handler.postDelayed(new Runnable() {
+                                           @Override
+                                           public void run() {
+                                               refresh();
+                                           }
+                                       },1000);
+                                    }
+                                });
+
                             }
                         }
 

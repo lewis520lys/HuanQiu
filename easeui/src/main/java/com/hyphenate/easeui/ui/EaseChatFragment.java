@@ -606,7 +606,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             if (ext!=null){
                 String tips = ext.get("tips").toString();
                 String type = ext.get("type").toString();
-                String time = ext.get("times").toString();
+                final String time = ext.get("times").toString();
                 totalTime = Long.parseLong(time);
                 if (type.equals("1")){
                     ll_head.setVisibility(View.VISIBLE);
@@ -615,7 +615,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     ll_head.setVisibility(View.INVISIBLE);
                 }
                 tv_head.setText(tips);
-               handler.post(new Runnable() {
+                handler.post(new Runnable() {
                    @Override
                    public void run() {
                       timer= new CountDownTimer(totalTime*1000, 1000) {
@@ -624,10 +624,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                            public void onTick(long millisUntilFinished) {
                                tv_time.setText((millisUntilFinished / 1000) + "秒");
                            }
-
                            @Override
                            public void onFinish() {
-
                                tv_time.setVisibility(View.INVISIBLE);
                            }
                        };
