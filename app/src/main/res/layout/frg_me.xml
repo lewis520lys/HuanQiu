@@ -190,7 +190,7 @@
     <Button
 
         android:layout_marginTop="@dimen/d40"
-        android:background="@color/comColor"
+        android:background="@drawable/bt_shap"
         android:textColor="@color/wihte"
         android:id="@+id/bt_exit"
         android:text="退出登录"

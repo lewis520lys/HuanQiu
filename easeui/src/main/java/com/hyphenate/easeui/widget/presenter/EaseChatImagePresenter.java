@@ -96,10 +96,18 @@ public class EaseChatImagePresenter extends EaseChatFilePresenter {
         }
         HashMap<String, Object> ext = (HashMap<String, Object>) message.ext();
         Log.e("ext",ext.toString());
-        if (ext!=null){
+        if (ext!=null&&ext.size()>0){
             String url = ext.get("url").toString();
+            String type = ext.get("type").toString();
             if (!TextUtils.isEmpty(url)){
                 Intent intent1 = new Intent(getContext(),WebAct.class);
+                if ("4".equals(type)){
+                    intent1.putExtra("title","核对表格");
+                }else {
+                    intent1.putExtra("title","余分表");
+                }
+                intent1.putExtra("url",url);
+                getContext().startActivity(intent1);
             }else {
                 getContext().startActivity(intent);
             }

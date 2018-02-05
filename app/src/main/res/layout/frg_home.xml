@@ -17,7 +17,7 @@
          android:layout_marginRight="@dimen/d240"
          android:gravity="center"
          android:textColor="@color/wihte"
-         android:background="@color/comColor"
+         android:background="@drawable/bt_shap"
          android:text="最新资讯"
          android:layout_width="match_parent"
          android:layout_height="@dimen/d88"/>

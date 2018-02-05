@@ -3,6 +3,7 @@ package com.lewis.cp;
 import android.Manifest;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +21,8 @@ import com.lewis.cp.view.frgm.MeFragment;
 import com.lewis.cp.view.frgm.YuleFragment;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
+
+import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 
@@ -37,6 +40,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     private int lastSelectedPosition=0;
     private int currentTabIndex=0;
+    private ArrayList<Fragment> fragments;
 
 
     @Override
@@ -53,6 +57,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 .addItem(new BottomNavigationItem(R.mipmap.me_s, "我的").setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.me)).setActiveColor(Color.parseColor("#2BA246")))
                  .setFirstSelectedPosition(lastSelectedPosition )
                 .initialise();
+        fragments = getFragments();
         bottomNavigationBar.setTabSelectedListener(this);
         setDefaultFragment();
         initPermission();
@@ -136,44 +141,89 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         transaction.replace(R.id.tb, homeFragment);
         transaction.commit();
     }
+    private ArrayList<Fragment> getFragments() {
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(new HomeFragment());
+        fragments.add(new YuleFragment());
+        fragments.add(new MeFragment());
+
+        return fragments;
+    }
+
 
     @Override
     public void onTabSelected(int position) {
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        switch (position) {
-            case 0:
-                currentTabIndex=0;
-                if (homeFragment == null) {
-                    homeFragment =  new HomeFragment();
-                }
-                transaction.replace(R.id.tb, homeFragment);
-                break;
-            case 1:
-                currentTabIndex=1;
-                if (yuleFragment == null) {
-                    yuleFragment = new YuleFragment();
-                }
-                transaction.replace(R.id.tb, yuleFragment);
-                break;
-            case 2:
-                currentTabIndex=2;
-                if (meFragment == null) {
-                    meFragment =new MeFragment();
-                }
-                transaction.replace(R.id.tb, meFragment);
-                break;
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        switch (position) {
+//            case 0:
+//                currentTabIndex=0;
+//                if (homeFragment == null) {
+//                    homeFragment =  new HomeFragment();
+//                }
+//                transaction.replace(R.id.tb, homeFragment);
+//                break;
+//            case 1:
+//                currentTabIndex=1;
+//                if (yuleFragment == null) {
+//                    yuleFragment = new YuleFragment();
+//                }
+//                transaction.replace(R.id.tb, yuleFragment);
+//                break;
+//            case 2:
+//                currentTabIndex=2;
+//                if (meFragment == null) {
+//                    meFragment =new MeFragment();
+//                }
+//                transaction.replace(R.id.tb, meFragment);
+//                break;
+//
+//            default:
+//                break;
+//        }
+//        // 事务提交
+//        transaction.commit();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        //当前的fragment
+        Fragment from = fm.findFragmentById(R.id.tb);
+        if (fragments != null) {
+            if (position < fragments.size()) {
 
-            default:
-                break;
+                //点击即将跳转的fragment
+                Fragment fragment = fragments.get(position);
+                if (fragment.isAdded()) {
+                    // 隐藏当前的fragment，显示下一个
+                    ft.hide(from).show(fragment);
+                } else {
+
+                    ft.hide(from).add(R.id.tb, fragment);
+                    if (fragment.isHidden()) {
+                        ft.show(fragment);
+
+                    }
+                }
+                ft.commitAllowingStateLoss();
+            }
         }
-        // 事务提交
-        transaction.commit();
+
+
     }
 
     @Override
     public void onTabUnselected(int position) {
+        if (fragments != null) {
+            if (position < fragments.size()) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment fragment = fragments.get(position);
+                // 隐藏当前的fragment
+                ft.hide(fragment);
+                ft.commitAllowingStateLoss();
+            }
+        }
+
 
     }
 
