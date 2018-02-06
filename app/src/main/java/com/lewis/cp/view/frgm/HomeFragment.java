@@ -1,6 +1,7 @@
 package com.lewis.cp.view.frgm;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +11,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.lewis.cp.R;
+import com.lewis.cp.base.AppConfig;
 import com.lewis.cp.base.BaseApplication;
 import com.lewis.cp.base.BaseFragment;
 import com.lewis.cp.http.APIService;
 import com.lewis.cp.http.RetrofitManager;
 import com.lewis.cp.model.BaseCallModel;
 import com.lewis.cp.model.HomeBean;
+import com.lewis.cp.view.act.ComWebAct;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +75,19 @@ public class HomeFragment extends BaseFragment {
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
         banner.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位置
         banner.setDelayTime(2000);//设置轮播时间
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Intent intent =new Intent(getActivity(), ComWebAct.class);
+                Bundle budle=new Bundle();
+                budle.putString("title","活动");
+                budle.putString("url", list.get(position).getLinkUrl());
+                intent.putExtras(budle);
+                startActivity(intent);
+            }
+        });
         getHomeData();
+
     }
 
 
@@ -101,14 +117,15 @@ public class HomeFragment extends BaseFragment {
                                         ) {
                                     images.add(bean.getImageUrl());
                                 }
-                                getActivity().runOnUiThread(new Runnable() {
+                                handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         banner.setImages(images);
                                         banner.start();
                                         tv_content.setText(response.body().getAdverInfo());
                                     }
-                                });
+                                },1000);
+
                             }
                         }
                     }

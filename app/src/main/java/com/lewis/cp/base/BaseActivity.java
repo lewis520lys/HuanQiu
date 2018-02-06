@@ -313,28 +313,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         this.isSetStatusBar = isSetStatusBar;
         }
 
-     private  void  getVersion(){
-         Map<String,String>  map =new HashMap<>();
-         map.put("userName",user.userName);
-         map.put("loginToken",user.loginToken);
-         RetrofitManager.getInstance()
-                 .createReq(APIService.class)
-                 .getVersionUrl(map)
-                 .enqueue(new Callback<WelcomeBean>() {
-                     @Override
-                     public void onResponse(Call<WelcomeBean> call, Response<WelcomeBean> response) {
-                         WelcomeBean body = response.body();
 
-                     }
-
-                     @Override
-                     public void onFailure(Call<WelcomeBean> call, Throwable t) {
-
-                     }
-                 });
-
-
-     }
 
 
 }

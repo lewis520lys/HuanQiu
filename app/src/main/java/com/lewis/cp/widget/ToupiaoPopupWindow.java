@@ -196,8 +196,9 @@ public class ToupiaoPopupWindow extends PopupWindow implements NumberKeyboardVie
         tv_zhuangdui.setText("");
         tv_xiandui.setText("");
         tv_sanbao.setText("");
+        setType();
         tv.setText("请下注");
-           }
+        }
     private void setType() {
         type1 = 0;
         type2 = 0;

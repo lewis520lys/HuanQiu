@@ -4,6 +4,7 @@ package com.lewis.cp.base;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     protected BaseApplication baseApp;
     protected BaseActivity holdActivity;
     private Unbinder unbinder;
+    protected Handler  handler=new Handler();
    @Override
     public void onAttach(Context context) {
         super.onAttach(context);

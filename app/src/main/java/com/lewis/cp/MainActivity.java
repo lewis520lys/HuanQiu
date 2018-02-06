@@ -1,12 +1,17 @@
 package com.lewis.cp;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -14,7 +19,15 @@ import android.widget.Toast;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.lewis.cp.base.BaseActivity;
+import com.lewis.cp.http.APIService;
+import com.lewis.cp.http.RetrofitManager;
+import com.lewis.cp.model.WelcomeBean;
+import com.lewis.cp.view.act.ComWebAct;
 import com.lewis.cp.view.frgm.HomeFragment;
 import com.lewis.cp.view.frgm.MeFragment;
 
@@ -23,8 +36,14 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import butterknife.BindView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
@@ -43,9 +62,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private ArrayList<Fragment> fragments;
 
 
+    private LocationClient mLocationClient;
+    private BDLocationListener mBDLocationListener;
     @Override
     protected void initData() {
-
+            getLocation();
     }
 
     @Override
@@ -61,6 +82,49 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         bottomNavigationBar.setTabSelectedListener(this);
         setDefaultFragment();
         initPermission();
+        // 声明LocationClient类
+        mLocationClient = new LocationClient(getApplicationContext());
+        mBDLocationListener = new MyBDLocationListener();
+        // 注册监听
+        mLocationClient.registerLocationListener(mBDLocationListener);
+
+    }
+    /** 获得所在位置经纬度及详细地址 */
+    public void getLocation() {
+        // 声明定位参数
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式 高精度
+        option.setCoorType("bd09ll");// 设置返回定位结果是百度经纬度 默认gcj02
+        option.setScanSpan(5000);// 设置发起定位请求的时间间隔 单位ms
+        option.setIsNeedAddress(true);// 设置定位结果包含地址信息
+        option.setNeedDeviceDirect(true);// 设置定位结果包含手机机头 的方向
+        // 设置定位参数
+        mLocationClient.setLocOption(option);
+        // 启动定位
+        mLocationClient.start();
+
+    }
+     class MyBDLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // 非空判断
+            if (location != null) {
+                // 根据BDLocation 对象获得经纬度以及详细地址信息
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+
+                getVersion(String.valueOf(longitude),String.valueOf(latitude));
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mLocationClient != null) {
+            mLocationClient.unRegisterLocationListener(mBDLocationListener);
+        }
     }
 
     @Override
@@ -154,36 +218,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     public void onTabSelected(int position) {
 
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        switch (position) {
-//            case 0:
-//                currentTabIndex=0;
-//                if (homeFragment == null) {
-//                    homeFragment =  new HomeFragment();
-//                }
-//                transaction.replace(R.id.tb, homeFragment);
-//                break;
-//            case 1:
-//                currentTabIndex=1;
-//                if (yuleFragment == null) {
-//                    yuleFragment = new YuleFragment();
-//                }
-//                transaction.replace(R.id.tb, yuleFragment);
-//                break;
-//            case 2:
-//                currentTabIndex=2;
-//                if (meFragment == null) {
-//                    meFragment =new MeFragment();
-//                }
-//                transaction.replace(R.id.tb, meFragment);
-//                break;
-//
-//            default:
-//                break;
-//        }
-//        // 事务提交
-//        transaction.commit();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         //当前的fragment
@@ -234,8 +268,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private long mExitTime;
 
 
+    @Override
+    public void onBackPressed() {
+        exitBy2Click();
 
 
+    }
 
     private void exitBy2Click() {
 
@@ -254,6 +292,56 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         }
 
     }
+    private  void  getVersion(String longitudinal,String latitude){
+        Map<String,String> map =new HashMap<>();
+        map.put("userName",user.userName);
+        map.put("loginToken",user.loginToken);
+        map.put("longitudinal",longitudinal);
+        map.put("latitude",latitude);
+        
+        RetrofitManager.getInstance()
+                .createReq(APIService.class)
+                .getVersionUrl(map)
+                .enqueue(new Callback<WelcomeBean>() {
+                    @Override
+                    public void onResponse(Call<WelcomeBean> call, Response<WelcomeBean> response) {
+                        WelcomeBean body = response.body();
+                        if (body!=null){
+                            String version = body.version;
+                            if (Integer.parseInt(version)>getVersionCode(MainActivity.this)){
+                                Intent intent =new Intent(MainActivity.this, ComWebAct.class);
+                                Bundle budle=new Bundle();
+                                budle.putString("title","下载更新");
+                                budle.putString("url", body.versionUrl);
+                                intent.putExtras(budle);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<WelcomeBean> call, Throwable t) {
+
+                    }
+                });
+
+
+    }
+    /**
+     * @return 当前应用的版本号
+     */
+    public int getVersionCode(Context context) {
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            int version = info.versionCode;
+            return version;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 
 
 }

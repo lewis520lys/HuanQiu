@@ -27,12 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-
         </activity>
         <activity android:name=".view.act.LoginAct" >
-
         </activity>
-
         <activity android:name=".view.act.ForgetPwdAct" />
         <activity android:name=".view.act.WelComeAct">
             <intent-filter>
