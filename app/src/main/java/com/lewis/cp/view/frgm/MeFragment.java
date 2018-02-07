@@ -53,7 +53,7 @@ public class MeFragment extends BaseFragment {
     CircleImageView ivHead;
     @BindView(R.id.tv_name)
     TextView tvName;
-    @BindView(R.id.tv_id)
+    @BindView(R.id.tv_userid)
     TextView tvId;
 
     private ACache cache;
@@ -76,8 +76,8 @@ public class MeFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
         requestData();
     }
 
@@ -93,14 +93,12 @@ public class MeFragment extends BaseFragment {
         Bundle budle=new Bundle();
         switch (view.getId()) {
             case R.id.rl_yufen:
-
                 budle.putString("title","我的余分");
                 budle.putString("url", AppConfig.BASE_URL+"businessUser/mybalance?userName="+user.userName);
                 intent.putExtras(budle);
                 startActivity(intent);
                 break;
             case R.id.rl_liuxhui:
-
                 budle.putString("title","我的流水");
                 budle.putString("url", AppConfig.BASE_URL+"businessUser/mybet?userName="+user.userName);
                 intent.putExtras(budle);
@@ -140,7 +138,6 @@ public class MeFragment extends BaseFragment {
     private void requestData(){
         Map<String, String> map = new HashMap<>();
         map.put("userName", user.userName);
-
         RetrofitManager.getInstance()
                 .createReq(APIService.class)
                 .requestUserInfo(map)
@@ -149,22 +146,18 @@ public class MeFragment extends BaseFragment {
                     public void onResponse(Call<CurdUserBean> call, Response<CurdUserBean> response) {
                         final CurdUserBean body = response.body();
                         if (body != null) {
-                            getActivity().runOnUiThread(new Runnable() {
+                            handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     Glide.with(getActivity()).load(body.headImg).placeholder(R.mipmap.head_default).into(ivHead);
                                     tvName.setText(body.nickName);
-                                    tvId.setText(body.userId+"");
+                                    tvId.setText(user.userId+"");
                                 }
-                            });
-
+                            },500);
                         }
-
                     }
-
                     @Override
                     public void onFailure(Call<CurdUserBean> call, Throwable t) {
-
                     }
                 });
 

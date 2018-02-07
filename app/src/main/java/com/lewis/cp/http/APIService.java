@@ -29,7 +29,7 @@ public interface APIService {
   Call<UserModel> loginReq(@FieldMap Map<String,String> map);
   //找回密码
   @FormUrlEncoded
-  @POST("findPass")
+  @POST("businessUser/findPass")
   Call<BaseCallModel> findPwdReq(@FieldMap Map<String,String> map);
   //首页
   @GET("adver")

@@ -98,7 +98,7 @@ public class YuleFragment extends EaseConversationListFragment {
                                            public void run() {
                                                refresh();
                                            }
-                                       },500);
+                                       },800);
                                     }
                                 });
 

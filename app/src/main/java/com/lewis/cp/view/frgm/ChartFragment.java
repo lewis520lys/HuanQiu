@@ -141,6 +141,7 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
                 bpPair=zxd.replace("庄闲对:","").replace(";","");
                 sanBao=sb.replace("三宝:","").replace(";","");
                 String msg=z+h+x+zd+xd+zxd+sb;
+                msg = msg.substring(0, msg.length()-1);
                 String[] split = msg.split("android.support");
                 sendTextMessage(split[0]);
                 xiazhu();

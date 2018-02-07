@@ -34,8 +34,8 @@
             <TextView
                 android:textColor="#ff0000"
                 android:layout_marginTop="@dimen/d40"
-                android:text="1111"
-                android:id="@+id/tv_id"
+                android:text="0"
+                android:id="@+id/tv_userid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
