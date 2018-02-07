@@ -71,7 +71,7 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
         user = (UserModel.UserBean) cache.getAsObject("user");
         final Bundle bundle = getArguments();
         userId = bundle.getString("userId");
-        titleBar.setTitle(userId);
+
 
         joinGroup();
         checkGroupId();
@@ -168,6 +168,12 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
             public void run() {
                 try {
                     group = EMClient.getInstance().groupManager().getGroupFromServer(userId);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            titleBar.setTitle(group.getGroupName());
+                        }
+                    });
                 } catch (HyphenateException e) {
                     e.printStackTrace();
                 }

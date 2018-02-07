@@ -2,6 +2,7 @@ package com.lewis.cp.view.frgm;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,11 +79,10 @@ public class HomeFragment extends BaseFragment {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                Intent intent =new Intent(getActivity(), ComWebAct.class);
-                Bundle budle=new Bundle();
-                budle.putString("title","活动");
-                budle.putString("url", list.get(position).getLinkUrl());
-                intent.putExtras(budle);
+                Intent intent= new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(list.get(position).getLinkUrl());
+                intent.setData(content_url);
                 startActivity(intent);
             }
         });
@@ -124,7 +124,7 @@ public class HomeFragment extends BaseFragment {
                                         banner.start();
                                         tv_content.setText(response.body().getAdverInfo());
                                     }
-                                },1000);
+                                },500);
 
                             }
                         }

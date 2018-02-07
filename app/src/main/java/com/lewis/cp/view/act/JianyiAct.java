@@ -2,6 +2,7 @@ package com.lewis.cp.view.act;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -89,7 +90,8 @@ public class JianyiAct extends BaseActivity {
     private void commit() {
         Map<String, String> map = new HashMap<>();
         map.put("userName", user.userName);
-        map.put("feedback ", content );
+        map.put("feedback", content );
+        Log.e("map",map.toString());
         RetrofitManager.getInstance()
                 .createReq(APIService.class)
                 .jianYiReq(map)

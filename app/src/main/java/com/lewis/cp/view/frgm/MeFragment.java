@@ -72,7 +72,7 @@ public class MeFragment extends BaseFragment {
         tvTitle.setText("我的");
         cache = ACache.get(BaseApplication.getContext());
         user = (UserModel.UserBean) cache.getAsObject("user");
-
+        requestData();
     }
 
     @Override

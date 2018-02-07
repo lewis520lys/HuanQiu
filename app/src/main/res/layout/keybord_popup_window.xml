@@ -80,14 +80,14 @@
         <Button
             android:background="@color/wihte"
             android:id="@+id/bt_zhuang"
-            android:textColor="#84434B"
+            android:textColor="#EA252C"
             android:gravity="center"
             android:text="庄"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="@dimen/d90" />
         <Button
-            android:textColor="#9BD48D"
+            android:textColor="#85F46F"
             android:background="@color/wihte"
             android:id="@+id/bt_he"
             android:gravity="center"
@@ -98,7 +98,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/d90" />
         <Button
-            android:textColor="#9F9CAF"
+            android:textColor="#3537FA"
             android:background="@color/wihte"
             android:id="@+id/bt_xian"
             android:gravity="center"
@@ -116,7 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:textColor="#916A63"
+            android:textColor="#EA252C"
             android:background="@color/wihte"
             android:id="@+id/bt_zhuangdui"
             android:gravity="center"
@@ -125,7 +125,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/d90" />
         <Button
-            android:textColor="#8C88A3"
+            android:textColor="#3537FA"
             android:background="@color/wihte"
             android:id="@+id/bt_xiandui"
             android:gravity="center"

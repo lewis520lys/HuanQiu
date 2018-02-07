@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -95,7 +96,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式 高精度
         option.setCoorType("bd09ll");// 设置返回定位结果是百度经纬度 默认gcj02
-        option.setScanSpan(5000);// 设置发起定位请求的时间间隔 单位ms
+
+        //option.setScanSpan(5000);// 设置发起定位请求的时间间隔 单位ms
         option.setIsNeedAddress(true);// 设置定位结果包含地址信息
         option.setNeedDeviceDirect(true);// 设置定位结果包含手机机头 的方向
         // 设置定位参数
@@ -308,14 +310,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                         WelcomeBean body = response.body();
                         if (body!=null){
                             String version = body.version;
-                            if (Integer.parseInt(version)>getVersionCode(MainActivity.this)){
-                                Intent intent =new Intent(MainActivity.this, ComWebAct.class);
-                                Bundle budle=new Bundle();
-                                budle.putString("title","下载更新");
-                                budle.putString("url", body.versionUrl);
-                                intent.putExtras(budle);
-                                startActivity(intent);
-                            }
+                           if (Integer.parseInt(version)>getVersionCode(MainActivity.this)){
+                                Intent intent= new Intent();
+                                intent.setAction("android.intent.action.VIEW");
+                                Uri content_url = Uri.parse(body.versionUrl);
+                                intent.setData(content_url);
+                                startActivity(intent);;
+                           }
                         }
                     }
 
@@ -324,8 +325,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
                     }
                 });
-
-
     }
     /**
      * @return 当前应用的版本号
