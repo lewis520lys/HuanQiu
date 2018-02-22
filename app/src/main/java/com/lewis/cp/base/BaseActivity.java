@@ -108,6 +108,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
                     }else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
                         showToast("帐号在其他设备登录");
                         BaseApplication.getInstance().finishAllActivities();
+                        mCache.clear();
                         startActivity(LoginAct.class);
 
                     } else {

@@ -135,6 +135,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     public TextView guanli;
     public LinearLayout ll_right;
     public LinearLayout ll_head;
+    protected String type="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -605,7 +606,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             HashMap<String, Object> ext = (HashMap<String, Object>) message.ext();
             if (ext!=null){
                 String tips = ext.get("tips").toString();
-                String type = ext.get("type").toString();
+                type = ext.get("type").toString();
                 final String time = ext.get("times").toString();
                 totalTime = Long.parseLong(time);
                 if (type.equals("1")){

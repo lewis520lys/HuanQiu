@@ -1,5 +1,6 @@
 package com.lewis.cp.utils;
 
+import android.content.Context;
 import android.view.View;
 
 public class ForbadClick {
@@ -23,4 +24,9 @@ public class ForbadClick {
         lastClickTime = time;
         return false;
     }
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
 }

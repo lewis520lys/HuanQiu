@@ -1,5 +1,6 @@
 package com.lewis.cp.view.frgm;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,11 +26,13 @@ import com.lewis.cp.model.GroupModel;
 import com.lewis.cp.model.TouZhuBean;
 import com.lewis.cp.model.UserModel;
 import com.lewis.cp.utils.Constant;
+import com.lewis.cp.utils.ForbadClick;
 import com.lewis.cp.utils.ImageToBase;
 import com.lewis.cp.view.act.ChatActivity;
 import com.lewis.cp.view.act.ComWebAct;
 import com.lewis.cp.view.act.QunDetialAct;
 import com.lewis.cp.widget.ACache;
+import com.lewis.cp.widget.LuDanWindow;
 import com.lewis.cp.widget.ToupiaoPopupWindow;
 import com.lewis.cp.widget.ZhiboPopupWindow;
 
@@ -62,6 +65,8 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
     private String playerPair="";
     private String bpPair="";
     private String sanBao="";
+    private int width;
+    private String[] split;
 
 
     @Override
@@ -71,8 +76,11 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
         user = (UserModel.UserBean) cache.getAsObject("user");
         final Bundle bundle = getArguments();
         userId = bundle.getString("userId");
-
-
+        WindowManager wm = (WindowManager) getActivity()
+                .getSystemService(Context.WINDOW_SERVICE);
+        width = wm.getDefaultDisplay().getWidth();
+        int height = wm.getDefaultDisplay().getHeight();
+        width=width- ForbadClick.dip2px(getContext(),30);
         joinGroup();
         checkGroupId();
         titleBar.setBackgroundColor(Color.parseColor("#373A41"));
@@ -88,7 +96,7 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
         zhibo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               new ZhiboPopupWindow(getActivity(),body.rmtpUrl).showAsDropDown(tv_head);
+               new ZhiboPopupWindow(getActivity(),body.rmtpUrl,width).showAsDropDown(tv_head,0,0,Gravity.CENTER_HORIZONTAL);
             }
         });
         titleBar.setRightLayoutClickListener(new View.OnClickListener() {
@@ -113,13 +121,8 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
         ludan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new LuDanWindow(getActivity(),AppConfig.BASE_URL+"ludan?managerId="+managerId).showAtLocation(root,Gravity.BOTTOM,0,0);
 
-                Intent intent =new Intent(getActivity(), ComWebAct.class);
-                Bundle budle=new Bundle();
-                budle.putString("title","路单");
-                budle.putString("url", AppConfig.BASE_URL+"ludan?managerId="+managerId);
-                intent.putExtras(budle);
-                startActivity(intent);
             }
         });
 
@@ -142,8 +145,8 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
                 sanBao=sb.replace("三宝:","").replace(";","");
                 String msg=z+h+x+zd+xd+zxd+sb;
                 msg = msg.substring(0, msg.length()-1);
-                String[] split = msg.split("android.support");
-                sendTextMessage(split[0]);
+                split = msg.split("android.support");
+
                 xiazhu();
                 toupiaoPopupWindow.dismiss();
                 toupiaoPopupWindow.delectAll();
@@ -236,6 +239,7 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
                              Toast.makeText(getActivity(),body.info,Toast.LENGTH_LONG).show();
                              if (!TextUtils.isEmpty(body.balance)){
                                  toupiaoPopupWindow.tvYue.setText(body.balance);
+                                 sendTextMessage(split[0]);
                              }
                          }
                     }

@@ -34,7 +34,6 @@ public interface APIService {
   //首页
   @GET("adver")
   Call<HomeBean> getHomeData();
-
   //单点登录
   @FormUrlEncoded
   @POST("version")

@@ -22,11 +22,11 @@ public class ZhiboPopupWindow extends PopupWindow {
     private ImageView iv_close;
 
 
-    public ZhiboPopupWindow(Activity context,String URL) {
+    public ZhiboPopupWindow(Activity context,String URL,int witdh) {
         super(context);
         // TODO Auto-generated constructor stub
         init(context,URL);
-        setPopupWindow();
+        setPopupWindow(witdh);
     }
 
     /**
@@ -63,9 +63,9 @@ public class ZhiboPopupWindow extends PopupWindow {
      * 设置窗口的相关属性
      */
 
-    private void setPopupWindow() {
+    private void setPopupWindow(int witdh) {
         this.setContentView(mPopView);// 设置View
-        this.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);// 设置弹出窗口的宽
+        this.setWidth(witdh);// 设置弹出窗口的宽
         this.setHeight(500);// 设置弹出窗口的高
         this.setFocusable(false);// 设置弹出窗口可
         this.setOutsideTouchable(false);
