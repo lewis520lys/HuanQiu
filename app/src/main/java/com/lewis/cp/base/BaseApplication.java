@@ -4,21 +4,34 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
+import com.hyphenate.easeui.domain.EaseEmojicon;
+import com.hyphenate.easeui.domain.EaseEmojiconGroupEntity;
+import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.model.EaseAtMessageHelper;
+import com.hyphenate.easeui.model.EaseNotifier;
+import com.hyphenate.easeui.utils.EaseCommonUtils;
+import com.lewis.cp.R;
 import com.lewis.cp.utils.PicassoImageLoader;
+import com.lewis.cp.widget.EmojiconExampleGroupData;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import cn.bmob.v3.Bmob;
+
+import static com.hyphenate.easeui.utils.EaseUserUtils.getUserInfo;
 
 public class BaseApplication extends Application {
     /*
@@ -32,6 +45,8 @@ public class BaseApplication extends Application {
     private static BaseApplication application;
     // 记录环信是否已经初始化
     private boolean isInit = false;
+    private EaseUI easeUI;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -134,9 +149,104 @@ public class BaseApplication extends Application {
 
         // 设置开启debug模式
         EMClient.getInstance().setDebugMode(true);
-        EaseUI.getInstance().init(this, null);  //初始化EaseUI
-
+        //初始化EaseUI
+        easeUI = EaseUI.getInstance();
+        easeUI.init(this, null);
         // 设置初始化已经完成
+        //设置表情provider
+        easeUI.setEmojiconInfoProvider(new EaseUI.EaseEmojiconInfoProvider() {
+
+            @Override
+            public EaseEmojicon getEmojiconInfo(String emojiconIdentityCode) {
+                //通过表情id返回具体表情数据
+                EaseEmojiconGroupEntity data = EmojiconExampleGroupData.getData();
+                for(EaseEmojicon emojicon : data.getEmojiconList()){
+                    if(emojicon.getIdentityCode().equals(emojiconIdentityCode)){
+                        return emojicon;
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            public Map<String, Object> getTextEmojiconMapping() {
+                //返回文字表情emoji文本和图片(resource id或者本地路径)的映射map
+                return null;
+            }
+        });
+        //set notification options, will use default if you don't set it
+        easeUI.getNotifier().setNotificationInfoProvider(new EaseNotifier.EaseNotificationInfoProvider() {
+
+            @Override
+            public String getTitle(EMMessage message) {
+                //you can update title here
+                return null;
+            }
+
+            @Override
+            public int getSmallIcon(EMMessage message) {
+                //you can update icon here
+                return 0;
+            }
+
+            @Override
+            public String getDisplayedText(EMMessage message) {
+//                // be used on notification bar, different text according the message type.
+//                String ticker = EaseCommonUtils.getMessageDigest(message, appContext);
+//                if(message.getType() == EMMessage.Type.TXT){
+//                    ticker = ticker.replaceAll("\\[.{2,3}\\]", "[表情]");
+//                }
+//                EaseUser user = getUserInfo(message.getFrom());
+//                if(user != null){
+//                    if(EaseAtMessageHelper.get().isAtMeMsg(message)){
+//                        return String.format(appContext.getString(R.string.at_your_in_group), user.getNick());
+//                    }
+//                    return user.getNick() + ": " + ticker;
+//                }else{
+//                    if(EaseAtMessageHelper.get().isAtMeMsg(message)){
+//                        return String.format(appContext.getString(R.string.at_your_in_group), message.getFrom());
+//                    }
+//                    return message.getFrom() + ": " + ticker;
+//                }
+
+            }
+
+            @Override
+            public String getLatestText(EMMessage message, int fromUsersNum, int messageNum) {
+                // here you can customize the text.
+                // return fromUsersNum + "contacts send " + messageNum + "messages to you";
+                return null;
+            }
+
+            @Override
+            public Intent getLaunchIntent(EMMessage message) {
+//                // you can set what activity you want display when user click the notification
+//                Intent intent = new Intent(appContext, ChatActivity.class);
+//                // open calling activity if there is call
+//                if(isVideoCalling){
+//                    intent = new Intent(appContext, VideoCallActivity.class);
+//                }else if(isVoiceCalling){
+//                    intent = new Intent(appContext, VoiceCallActivity.class);
+//                }else{
+//                    ChatType chatType = message.getChatType();
+//                    if (chatType == ChatType.Chat) { // single chat message
+//                        intent.putExtra("userId", message.getFrom());
+//                        intent.putExtra("chatType", Constant.CHATTYPE_SINGLE);
+//                    } else { // group chat message
+//                        // message.getTo() is the group id
+//                        intent.putExtra("userId", message.getTo());
+//                        if(chatType == ChatType.GroupChat){
+//                            intent.putExtra("chatType", Constant.CHATTYPE_GROUP);
+//                        }else{
+//                            intent.putExtra("chatType", Constant.CHATTYPE_CHATROOM);
+//                        }
+//
+//                    }
+//                }
+                return null;
+            }
+        });
+
         isInit = true;
     }
 

@@ -106,6 +106,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
                 // to make it compatible with thumbnail received in previous version
                 thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
             }
+            //TODO
             showImageView(thumbPath, imgBody.getLocalUrl(), message);
         }
     }

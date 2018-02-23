@@ -16,6 +16,12 @@ import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseUI;
+import com.hyphenate.easeui.domain.EaseEmojicon;
+import com.hyphenate.easeui.domain.EaseEmojiconGroupEntity;
+import com.hyphenate.easeui.ui.EaseChatFragment;
+import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenu;
 import com.hyphenate.exceptions.HyphenateException;
 import com.lewis.cp.base.AppConfig;
 import com.lewis.cp.base.BaseApplication;
@@ -32,6 +38,7 @@ import com.lewis.cp.view.act.ChatActivity;
 import com.lewis.cp.view.act.ComWebAct;
 import com.lewis.cp.view.act.QunDetialAct;
 import com.lewis.cp.widget.ACache;
+import com.lewis.cp.widget.EmojiconExampleGroupData;
 import com.lewis.cp.widget.LuDanWindow;
 import com.lewis.cp.widget.ToupiaoPopupWindow;
 import com.lewis.cp.widget.ZhiboPopupWindow;
@@ -50,7 +57,7 @@ import retrofit2.Response;
  * Created by Administrator on 2018/1/29.
  */
 
-public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
+public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment  {
     String managerId="";
     private ToupiaoPopupWindow toupiaoPopupWindow;
     private ACache cache;
@@ -72,6 +79,9 @@ public class ChartFragment extends com.hyphenate.easeui.ui.EaseChatFragment {
     @Override
     protected void setUpView() {
         super.setUpView();
+        //设置表情provider
+
+        ((EaseEmojiconMenu)inputMenu.getEmojiconMenu()).addEmojiconGroup(EmojiconExampleGroupData.getData());
         cache = ACache.get(BaseApplication.getContext());
         user = (UserModel.UserBean) cache.getAsObject("user");
         final Bundle bundle = getArguments();

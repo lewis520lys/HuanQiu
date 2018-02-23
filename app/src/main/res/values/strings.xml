@@ -107,4 +107,5 @@
     <string name="VideoView_player_IjkMediaPlayer">Player: IjkMediaPlayer</string>
 
     <string name="VideoView_player_IjkExoMediaPlayer">Player: IjkExoMediaPlayer</string>
+    <string name="emojicon_test_name">示例</string>
 </resources>

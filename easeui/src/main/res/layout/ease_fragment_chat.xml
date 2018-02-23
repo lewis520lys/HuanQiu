@@ -30,6 +30,7 @@
         <com.hyphenate.easeui.widget.EaseChatMessageList
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            hyphenate:msgListShowUserAvatar="true"
             android:id="@+id/message_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
